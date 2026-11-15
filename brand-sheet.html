@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>ArchMakers — Brand book v1</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap");
+:root{--ink:#241D22;--burg:#843F55;--light:#F5F0EE;--soft:#DFD2D1;--muted:#97868B;--dburg:#A0687A}
+*{box-sizing:border-box;margin:0}
+body{width:1600px;height:880px;background:#fff;color:var(--ink);font-family:Inter,sans-serif;padding:52px 60px;display:grid;grid-template-rows:auto auto auto auto auto;gap:30px;align-content:start}
+header{display:flex;justify-content:space-between;align-items:end;border-bottom:2px solid var(--ink);padding-bottom:16px}
+h1{font:700 44px "Space Grotesk";letter-spacing:-.02em}
+header p{font-size:18px;color:#5E5359}
+.eyebrow{font:600 13px Inter;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.mode{border-radius:20px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;height:250px}
+.mode .lg{height:76px}.mode .ar{height:180px}
+.mode .meta{font-size:13px;margin-top:16px;opacity:.8}
+.btn{display:inline-block;margin-top:14px;padding:9px 18px;border-radius:10px;font:600 14px Inter;color:#fff}
+.chip{display:inline-block;margin:14px 0 0 8px;padding:7px 12px;border-radius:999px;font-size:13px}
+.row2{display:grid;grid-template-columns:1.35fr 1fr;gap:24px}
+.sws{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.sw{border-radius:12px;height:120px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;font:600 13px Inter;border:1px solid #E6DCDA}
+.sw small{font:400 12px Inter;opacity:.85}
+.type{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.box{border:1px solid #E6DCDA;border-radius:12px;padding:16px}
+.big1{font:700 50px "Space Grotesk";line-height:1}.big2{font:400 50px Inter;line-height:1}
+.box p{font-size:13px;color:#5E5359;margin-top:8px;line-height:1.45}
+.voice{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.voice .box{font-size:15px;line-height:1.45}
+.words{font:700 26px "Space Grotesk"}
+.yes{border:2px solid #3F7D5C}.no{border:2px solid #B4232C}
+footer{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);border-top:1px solid #E6DCDA;padding-top:12px}
+</style></head><body>
+<header><div><div class="eyebrow">Brand book v1 · November 2026</div><h1>ArchMakers</h1></div><p>Find who builds your model.</p></header>
+<section class="modes">
+  <div class="mode" style="background:var(--light)"><div><img class="lg" src="logo-light.svg" alt="ArchMakers logo, light mode"><div><span class="btn" style="background:var(--burg)">Request quotes</span><span class="chip" style="background:var(--soft)">1:200 · Resin · Berlin</span></div><div class="meta">Light mode · Burgundy #843F55 on Light #F5F0EE</div></div><img class="ar" src="archie.svg" alt="Archie"></div>
+  <div class="mode" style="background:var(--ink);color:var(--light)"><div><img class="lg" src="logo-dark.svg" alt="ArchMakers logo, dark mode"><div><span class="btn" style="background:var(--dburg)">Request quotes</span><span class="chip" style="background:#3A3036;color:var(--light)">1:200 · Resin · Berlin</span></div><div class="meta">Dark mode · Rose #A0687A on Ink #241D22</div></div><img class="ar" src="archie-dark.svg" alt="Archie, dark mode"></div>
+</section>
+<section class="row2">
+  <div><div class="eyebrow">Colours</div><div class="sws">
+    <div class="sw" style="background:var(--ink);color:var(--light)">Ink<small>#241D22</small></div>
+    <div class="sw" style="background:var(--burg);color:#fff">Burgundy<small>#843F55</small></div>
+    <div class="sw" style="background:var(--dburg);color:#fff">Rose<small>#A0687A · dark mode</small></div>
+    <div class="sw" style="background:var(--light)">Light<small>#F5F0EE</small></div>
+    <div class="sw" style="background:var(--soft)">Blush<small>#DFD2D1</small></div>
+    <div class="sw" style="background:var(--muted);color:#fff">Mauve<small>#97868B</small></div>
+  </div></div>
+  <div><div class="eyebrow">Fonts</div><div class="type">
+    <div class="box"><div class="big1">Aa</div><p><b>Space Grotesk</b> — headings, logo. Bold 700 / Medium 500.</p></div>
+    <div class="box"><div class="big2">Aa</div><p><b>Inter</b> — body, forms, UI. Regular 400 / Semibold 600.</p></div>
+  </div></div>
+</section>
+<section><div class="eyebrow">Tone of voice</div><div class="voice">
+  <div class="box"><div class="words">Precise · Helpful · Calm</div><p>Like a good colleague in the studio the night before a jury. Archie adds warmth, never jokes under deadline stress.</p></div>
+  <div class="box yes"><b>✓ Sounds like us</b><br>“Archie found three makers near Berlin who print 1:200 in white resin and can deliver by Friday.”</div>
+  <div class="box no"><b>✗ Not us</b><br>“OMG!!! 🚀 The BEST 3D printing deals EVER — click NOW before they’re gone!!!”</div>
+</div></section>
+<footer><span>archmakers.com · @archmakers</span><span>Logo &amp; Archie files: docs/brand/</span></footer>
+</body></html>
