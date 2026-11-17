@@ -7,6 +7,7 @@ connectDatabase();
 
 const server = app.listen(env.port, () => {
   console.log(`ArchMakers API running on http://localhost:${env.port} (${env.nodeEnv})`);
+  console.log(`Health check: http://localhost:${env.port}/health`);
 });
 
 // Close the database cleanly when the server stops (Ctrl+C)
