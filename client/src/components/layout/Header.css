@@ -1,0 +1,48 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  min-height: 72px;
+}
+
+.site-header-logo {
+  display: inline-flex;
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--space-6);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.site-nav a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  padding: var(--space-2) 0;
+  border-bottom: 2px solid transparent;
+}
+
+.site-nav a:hover {
+  color: var(--brand);
+  border-bottom-color: var(--brand);
+}
+
+/* On small screens only the most important link stays */
+@media (max-width: 720px) {
+  .site-nav li:not(:last-child) {
+    display: none;
+  }
+}

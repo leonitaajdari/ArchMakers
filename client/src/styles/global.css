@@ -1,0 +1,153 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--brand);
+}
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+}
+
+/* Shared layout helpers */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--space-5);
+}
+
+.section {
+  padding: var(--space-9) 0;
+  scroll-margin-top: 72px; /* keeps titles below the sticky header */
+}
+
+/* Small "01 / Label" marker above section titles — a nod to drawing sheets */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: var(--space-4);
+}
+
+.section-label::after {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+}
+
+.section-title {
+  font-size: clamp(30px, 4vw, 44px);
+  max-width: 18ch;
+}
+
+.section-intro {
+  margin-top: var(--space-4);
+  max-width: 60ch;
+  color: var(--text-soft);
+}
+
+/* Buttons */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  border: 2px solid var(--brand);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.button-primary {
+  background: var(--brand);
+  color: var(--white);
+}
+
+.button-primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+.button-secondary {
+  background: transparent;
+  color: var(--brand);
+}
+
+.button-secondary:hover {
+  background: var(--brand);
+  color: var(--white);
+}
+
+@media (prefers-color-scheme: dark) {
+  .button-primary:hover {
+    background: var(--light);
+    border-color: var(--light);
+    color: var(--ink);
+  }
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+
+  .section {
+    padding: var(--space-8) 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

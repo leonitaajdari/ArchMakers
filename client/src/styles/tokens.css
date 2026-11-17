@@ -1,0 +1,58 @@
+/*
+ * Brand tokens — from docs/brand-book.md (Burgundy palette, Space Grotesk + Inter).
+ * Change colours here only; components use the semantic names below.
+ */
+:root {
+  /* Brand palette */
+  --ink: #241d22;
+  --burgundy: #843f55;
+  --rose: #a0687a;
+  --light: #f5f0ee;
+  --blush: #dfd2d1;
+  --mauve: #97868b;
+  --ink-raised: #3a3036; /* chips / cards in dark mode (brand book) */
+  --white: #ffffff;
+
+  /* Light mode (default) */
+  --bg: var(--light);
+  --surface: var(--white);
+  --text: var(--ink);
+  --text-soft: rgba(36, 29, 34, 0.78); /* Ink, slightly softer — still readable */
+  --brand: var(--burgundy);
+  --chip: var(--blush);
+  --line: var(--blush);
+  --grid-line: rgba(132, 63, 85, 0.07);
+
+  /* Typography */
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --radius: 14px;
+  --radius-lg: 20px;
+  --container: 1160px;
+}
+
+/* Dark mode — follows the visitor's system setting (brand book: light and dark mode) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--ink);
+    --surface: var(--ink-raised);
+    --text: var(--light);
+    --text-soft: rgba(245, 240, 238, 0.8);
+    --brand: var(--rose);
+    --chip: var(--ink-raised);
+    --line: var(--ink-raised);
+    --grid-line: rgba(160, 104, 122, 0.1);
+  }
+}
