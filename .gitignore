@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment variables (secrets) — commit only the .env.example files
+.env
+.env.*
+!.env.example
+
+# Build output
+dist/
+build/
+
+# Uploaded 3D files (confidential, rule 10) — keep the empty folder only
+server/uploads/*
+!server/uploads/.gitkeep
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.vscode/
+.idea/
