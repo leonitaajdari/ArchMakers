@@ -1,0 +1,183 @@
+// ArchMakers — data model (matches server/src/db/migrations/001_initial_schema.sql)
+// Paste this into https://dbdiagram.io to view or export the diagram.
+
+Project ArchMakers {
+  database_type: 'SQLite'
+  Note: 'Migration 001_initial_schema. All tables are STRICT. Dates are ISO 8601 TEXT, booleans INTEGER 0/1, money INTEGER cents.'
+}
+
+Table users {
+  id integer [pk]
+  email text [not null, unique, note: 'COLLATE NOCASE']
+  name text
+  role text [not null, note: "architect | maker | admin"]
+  email_verified_at text
+  created_at text [not null, default: `datetime('now')`]
+}
+
+Table makers {
+  id integer [pk]
+  owner_user_id integer [unique, note: 'empty until the listing is claimed']
+  name text [not null]
+  slug text [not null, unique]
+  description text
+  city text [not null]
+  country text [not null, default: 'DE', note: "DE | MK | XK"]
+  website text
+  public_email text
+  phone text
+  listing_status text [not null, default: 'unclaimed', note: "unclaimed | claimed | hidden"]
+  scale_from integer [note: '50 = 1:50']
+  scale_to integer [note: '1000 = 1:1000']
+  typical_lead_time_days integer
+  offers_express integer [not null, default: 0]
+  price_level text [note: "low | medium | high"]
+  min_order_cents integer
+  languages text
+  is_verified integer [not null, default: 0]
+  claimed_at text
+  created_at text [not null, default: `datetime('now')`]
+  updated_at text [not null, default: `datetime('now')`]
+
+  indexes {
+    city [name: 'idx_makers_city']
+  }
+}
+
+Table maker_categories {
+  maker_id integer [not null]
+  category text [not null, note: "3d_printing | laser_cutting | model_studio"]
+
+  indexes {
+    (maker_id, category) [pk]
+  }
+}
+
+Table maker_materials {
+  maker_id integer [not null]
+  material text [not null]
+
+  indexes {
+    (maker_id, material) [pk]
+  }
+}
+
+Table maker_photos {
+  id integer [pk]
+  maker_id integer [not null]
+  file_path text [not null]
+  caption text
+  sort_order integer [not null, default: 0]
+  created_at text [not null, default: `datetime('now')`]
+
+  indexes {
+    maker_id [name: 'idx_maker_photos_maker']
+  }
+}
+
+Table quote_requests {
+  id integer [pk]
+  architect_id integer [not null]
+  category text [not null, note: "3d_printing | laser_cutting | model_studio"]
+  file_path text [not null]
+  file_name text [not null]
+  file_deleted_at text
+  scale integer [not null, note: '200 = 1:200']
+  material_colour text
+  approximate_size text
+  deadline text [not null]
+  budget_range text [not null, note: "under_100 | 100_250 | 250_500 | over_500"]
+  delivery_method text [not null, default: 'ship', note: "ship | pickup"]
+  notes text
+  follow_up_sent_at text
+  ordered_maker_id integer
+  created_at text [not null, default: `datetime('now')`]
+
+  indexes {
+    architect_id [name: 'idx_quote_requests_architect']
+  }
+}
+
+Table quote_request_recipients {
+  quote_request_id integer [not null]
+  maker_id integer [not null]
+  status text [not null, default: 'sent', note: "sent | replied | declined"]
+  sent_at text [not null, default: `datetime('now')`]
+  responded_at text
+  price_cents integer
+  delivery_date text
+  message text
+  decline_reason text [note: "too_busy | outside_scales | budget_too_low | other"]
+
+  indexes {
+    (quote_request_id, maker_id) [pk]
+    maker_id [name: 'idx_recipients_maker']
+  }
+}
+
+Table claims {
+  id integer [pk]
+  maker_id integer [not null]
+  user_id integer [not null]
+  method text [not null, note: "domain_email | phone_code | manual"]
+  status text [not null, default: 'pending', note: "pending | approved | rejected"]
+  created_at text [not null, default: `datetime('now')`]
+  decided_at text
+
+  indexes {
+    maker_id [name: 'idx_claims_maker']
+  }
+}
+
+Table subscriptions {
+  id integer [pk]
+  maker_id integer [not null]
+  billing_period text [not null, note: "trial | monthly | yearly"]
+  price_cents integer [not null, default: 0]
+  status text [not null, note: "trialing | active | past_due | cancelled | expired"]
+  current_period_start text [not null]
+  current_period_end text [not null]
+  cancel_at_period_end integer [not null, default: 0]
+  payment_failed_at text
+  created_at text [not null, default: `datetime('now')`]
+
+  indexes {
+    maker_id [name: 'idx_subscriptions_maker']
+  }
+}
+
+Table complaints {
+  id integer [pk]
+  architect_id integer [not null]
+  quote_request_id integer [not null]
+  maker_id integer [not null]
+  reason text [not null]
+  status text [not null, default: 'open', note: "open | confirmed | dismissed"]
+  created_at text [not null, default: `datetime('now')`]
+  resolved_at text
+
+  indexes {
+    maker_id [name: 'idx_complaints_maker']
+  }
+}
+
+// One-to-one: a user owns at most one maker listing (nullable, unique)
+Ref: makers.owner_user_id - users.id [delete: set null]
+
+// One-to-many
+Ref: maker_categories.maker_id > makers.id [delete: cascade]
+Ref: maker_materials.maker_id > makers.id [delete: cascade]
+Ref: maker_photos.maker_id > makers.id [delete: cascade]
+Ref: quote_requests.architect_id > users.id [delete: cascade]
+Ref: quote_requests.ordered_maker_id > makers.id [delete: set null]
+Ref: claims.maker_id > makers.id [delete: cascade]
+Ref: claims.user_id > users.id [delete: cascade]
+Ref: subscriptions.maker_id > makers.id [delete: cascade]
+Ref: complaints.architect_id > users.id [delete: cascade]
+
+// Many-to-many: quote_requests <-> makers through quote_request_recipients
+Ref: quote_request_recipients.quote_request_id > quote_requests.id [delete: cascade]
+Ref: quote_request_recipients.maker_id > makers.id [delete: cascade]
+
+// Composite foreign key: a complaint belongs to one recipient row
+Ref: complaints.(quote_request_id, maker_id) > quote_request_recipients.(quote_request_id, maker_id) [delete: cascade]

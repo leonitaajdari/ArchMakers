@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "node --watch --env-file-if-exists=.env src/index.js",
-    "start": "node --env-file-if-exists=.env src/index.js"
+    "start": "node --env-file-if-exists=.env src/index.js",
+    "migrate": "node --env-file-if-exists=.env src/db/migrate.js"
   },
   "dependencies": {
     "better-sqlite3": "^13.2.0",
